@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mai-Verse - Seishun Buta Yarou Imageboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      .character-card:hover .character-info {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .post-animation {
+        animation: fadeIn 0.5s ease-in-out;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .sakura-bg {
+        background-image: url('https://c.wallhere.com/photos/b5/a7/Sakurajima_Mai_Seishun_Buta_Yar_wa_Bunny_Girl_senpai_no_Yume_wo_Minai_anime_creatures_Nodoka_Toyohama_Futaba_Rio_Shoko_Makinohara_Azusagawa_Kaede_Azusagawa_Sakuta-2267342.jpg!d');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        background-color: rgba(255, 255, 255, 0.9);
+        background-blend-mode: lighten;
+      }
+    </style>
+  </head>
+  <body class="sakura-bg min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-pink-600 text-white shadow-lg">
+      <div
+        class="container mx-auto px-4 py-3 flex justify-between items-center"
+      >
+        <div class="flex items-center space-x-2">
+          <i class="fas fa-bunny text-2xl"></i>
+          <a href="#" class="text-xl font-bold">Mai-Verse</a>
+        </div>
+        <div class="hidden md:flex space-x-6">
+          <a href="#" class="hover:text-pink-200 transition" id="home-link"
+            >Home</a
+          >
+          <a href="#" class="hover:text-pink-200 transition" id="about-link"
+            >About</a
+          >
+        </div>
+        <button class="md:hidden focus:outline-none" id="mobile-menu-button">
+          <i class="fas fa-bars text-2xl"></i>
+        </button>
+      </div>
+      <!-- Mobile menu -->
+      <div class="md:hidden hidden bg-pink-700 px-4 py-2" id="mobile-menu">
+        <a href="#" class="block py-2 hover:text-pink-200 transition">Home</a>
+        <a href="#" class="block py-2 hover:text-pink-200 transition">About</a>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+      <!-- Home Section -->
+      <section id="home-section">
+        <div class="text-center mb-12">
+          <h1 class="text-4xl font-bold text-pink-700 mb-4">
+            Welcome to Bunny Board
+          </h1>
+          <p class="text-lg text-gray-700 max-w-2xl mx-auto">
+            A dedicated imageboard for the characters of Seishun Buta Yarou wa
+            Bunny Girl Senpai no Yume wo Minai
+          </p>
+        </div>
+
+        <!-- Character Grid -->
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+        >
+          <!-- Character cards will be added here by JavaScript -->
+        </div>
+
+        <!-- Post Section -->
+        <div class="mt-16 bg-white rounded-lg shadow-md p-6 max-w-4xl mx-auto">
+          <h2 class="text-2xl font-bold text-pink-700 mb-6">
+            Share Your Thoughts
+          </h2>
+          <form id="post-form" class="space-y-4">
+            <div>
+              <label for="character" class="block text-gray-700 mb-2"
+                >Character</label
+              >
+              <select
+                id="character"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              >
+                <option value="mai">Mai Sakurajima</option>
+                <option value="sakuta">Sakuta Azusagawa</option>
+                <option value="kaede">Kaede Azusagawa</option>
+                <option value="shoko">Shoko Makinohara</option>
+                <option value="noda">Rio Futaba</option>
+                <option value="tomoe">Tomoe Koga</option>
+              </select>
+            </div>
+            <div>
+              <label for="username" class="block text-gray-700 mb-2"
+                >Username</label
+              >
+              <input
+                type="text"
+                id="username"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                placeholder="Anonymous"
+              />
+            </div>
+            <div>
+              <label for="comment" class="block text-gray-700 mb-2"
+                >Comment</label
+              >
+              <textarea
+                id="comment"
+                rows="4"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                placeholder="What do you think about this character?"
+              ></textarea>
+            </div>
+            <div>
+              <label for="image" class="block text-gray-700 mb-2"
+                >Image (optional)</label
+              >
+              <input
+                type="file"
+                id="image"
+                accept="image/*"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              />
+            </div>
+            <button
+              type="submit"
+              class="bg-pink-600 text-white px-6 py-2 rounded-lg hover:bg-pink-700 transition"
+            >
+              Post
+            </button>
+          </form>
+        </div>
+
+        <!-- Posts Display -->
+        <div id="posts-container" class="mt-12 space-y-6 max-w-4xl mx-auto">
+          <!-- Posts will be added here by JavaScript -->
+        </div>
+      </section>
+
+      <!-- About Section (hidden by default) -->
+      <section id="about-section" class="hidden">
+        <div class="bg-white rounded-lg shadow-md p-6 max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold text-pink-700 mb-6">
+            About Bunny Board
+          </h2>
+          <div class="space-y-4 text-gray-700">
+            <p>
+              Welcome to Bunny Board, a dedicated imageboard for fans of Seishun
+              Buta Yarou wa Bunny Girl Senpai no Yume wo Minai (Rascal Does Not
+              Dream of Bunny Girl Senpai).
+            </p>
+            <p>
+              This platform was created to celebrate and discuss the wonderful
+              characters from this series, including:
+            </p>
+            <ul class="list-disc pl-6 space-y-2">
+              <li>
+                <span class="font-semibold">Mai Sakurajima</span> - The bunny
+                girl senpai herself
+              </li>
+              <li>
+                <span class="font-semibold">Sakuta Azusagawa</span> - Our
+                protagonist with a sharp tongue
+              </li>
+              <li>
+                <span class="font-semibold">Kaede Azusagawa</span> - Sakuta's
+                adorable little sister
+              </li>
+              <li>
+                <span class="font-semibold">Shoko Makinohara</span> - The
+                mysterious girl from Sakuta's past
+              </li>
+              <li>
+                <span class="font-semibold">Rio Futaba</span> - The genius
+                scientist friend
+              </li>
+              <li>
+                <span class="font-semibold">Tomoe Koga</span> - The tsundere
+                underclassman
+              </li>
+            </ul>
+            <p>
+              Feel free to share your thoughts, fan art, theories, and
+              appreciation for these characters and their stories.
+            </p>
+            <p class="pt-4 text-sm text-gray-500">
+              This is a fan-made project and is not affiliated with the official
+              creators of Seishun Buta Yarou.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-pink-600 text-white py-6 mt-12">
+      <div class="container mx-auto px-4 text-center">
+        <p>Made by @MMatt14 and @rmotafreitas from X</p>
+        <p class="mt-2 text-pink-200 text-sm">
+          Seishun Buta Yarou wa Bunny Girl Senpai no Yume wo Minai © Hajime
+          Kamoshida / ASCII Media Works / Aniplex
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // Sample data for characters
+      const characters = [
+        {
+          name: 'Mai Sakurajima',
+          role: 'Bunny Girl Senpai',
+          description:
+            'A former child actress and high school celebrity who becomes invisible to most people due to adolescence syndrome.',
+          image:
+            'https://get.wallhere.com/photo/Sakurajima-Mai-Seishun-Buta-Yar-wa-Bunny-Girl-senpai-no-Yume-wo-Minai-anime-anime-girls-Anime-screenshot-2152083.jpg',
+        },
+        {
+          name: 'Sakuta Azusagawa',
+          role: 'Protagonist',
+          description:
+            'A high school student who encounters various cases of adolescence syndrome while developing a relationship with Mai.',
+          image: 'https://wallpapercave.com/wp/wp6226437.jpg',
+        },
+        {
+          name: 'Kaede Azusagawa',
+          role: "Sakuta's Sister",
+          description:
+            "Sakuta's younger sister who suffers from trauma-induced social anxiety and adolescence syndrome.",
+          image: 'https://wallpapercave.com/wp/wp5522390.jpg',
+        },
+        {
+          name: 'Shoko Makinohara',
+          role: 'Mysterious Girl',
+          description:
+            "A girl who appears in Sakuta's past and present, connected to him through mysterious circumstances.",
+          image: 'https://wallpapercave.com/wp/wp5307194.jpg',
+        },
+        {
+          name: 'Rio Futaba',
+          role: 'Scientist Friend',
+          description:
+            'A genius classmate of Sakuta who helps investigate the cases of adolescence syndrome.',
+          image: 'https://wallpapercave.com/wp/wp4055525.jpg',
+        },
+        {
+          name: 'Tomoe Koga',
+          role: 'Underclassman',
+          description:
+            'A first-year student who develops feelings for Sakuta and experiences her own adolescence syndrome.',
+          image: 'https://wallpapercave.com/wp/wp5884242.jpg',
+        },
+      ];
+
+      // Sample posts data
+      let posts = [
+        {
+          id: 1,
+          character: 'mai',
+          username: 'MaiFan123',
+          comment:
+            "Mai's character development throughout the series is incredible. From a distant celebrity to someone who genuinely cares for Sakuta.",
+          timestamp: '2023-07-15T14:30:00Z',
+          image:
+            'https://c.wallhere.com/photos/3e/4a/Sakurajima_Mai_Seishun_Buta_Yar_wa_Bunny_Girl_senpai_no_Yume_wo_Minai_anime_anime_girls_Anime_screenshot-2152801.jpg!d',
+        },
+        {
+          id: 2,
+          character: 'sakuta',
+          username: 'Anon',
+          comment:
+            "Sakuta's sarcastic remarks are the best part of the show. His deadpan delivery is perfect!",
+          timestamp: '2023-07-14T10:15:00Z',
+        },
+      ];
+
+      // DOM elements
+      const homeLink = document.getElementById('home-link');
+      const aboutLink = document.getElementById('about-link');
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const homeSection = document.getElementById('home-section');
+      const aboutSection = document.getElementById('about-section');
+      const characterGrid = document.querySelector('.grid');
+      const postForm = document.getElementById('post-form');
+      const postsContainer = document.getElementById('posts-container');
+
+      // Initialize the page
+      document.addEventListener('DOMContentLoaded', function () {
+        renderCharacterCards();
+        renderPosts();
+        setupEventListeners();
+      });
+
+      // Render character cards
+      function renderCharacterCards() {
+        characterGrid.innerHTML = '';
+
+        characters.forEach((character) => {
+          const card = document.createElement('div');
+          card.className =
+            'bg-white rounded-lg shadow-md overflow-hidden relative character-card';
+          card.innerHTML = `
+                    <img src="${character.image}" alt="${character.name}" class="w-full h-64 object-cover">
+                    <div class="character-info absolute inset-0 bg-black bg-opacity-70 text-white p-4 opacity-0 transition-all duration-300 transform translate-y-4">
+                        <h3 class="text-xl font-bold">${character.name}</h3>
+                        <p class="text-pink-300 font-medium">${character.role}</p>
+                        <p class="mt-2 text-sm">${character.description}</p>
+                    </div>
+                `;
+          characterGrid.appendChild(card);
+        });
+      }
+
+      // Render posts
+      function renderPosts() {
+        postsContainer.innerHTML = '';
+
+        // Sort posts by timestamp (newest first)
+        const sortedPosts = [...posts].sort(
+          (a, b) => new Date(b.timestamp) - new Date(a.timestamp)
+        );
+
+        sortedPosts.forEach((post) => {
+          const character = characters.find((c) =>
+            c.name.toLowerCase().includes(post.character)
+          );
+
+          const postElement = document.createElement('div');
+          postElement.className =
+            'bg-white rounded-lg shadow-md p-6 post-animation';
+          postElement.innerHTML = `
+                    <div class="flex items-start space-x-4">
+                        <div class="flex-shrink-0">
+                            <img src="${
+                              character
+                                ? character.image
+                                : 'https://i.imgur.com/JY5XH9h.jpg'
+                            }" alt="${
+            post.character
+          }" class="w-16 h-16 rounded-full object-cover">
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-bold text-pink-700">${
+                                  post.username
+                                }</h3>
+                                <span class="text-sm text-gray-500">${formatDate(
+                                  post.timestamp
+                                )}</span>
+                            </div>
+                            <p class="text-gray-700 mt-1">Talking about: <span class="font-semibold">${getCharacterName(
+                              post.character
+                            )}</span></p>
+                            <p class="mt-3 text-gray-800">${post.comment}</p>
+                            ${
+                              post.image
+                                ? `<img src="${post.image}" alt="Post image" class="mt-4 rounded-lg max-w-full h-auto max-h-64">`
+                                : ''
+                            }
+                        </div>
+                    </div>
+                `;
+          postsContainer.appendChild(postElement);
+        });
+      }
+
+      // Format date
+      function formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+        });
+      }
+
+      // Get full character name from ID
+      function getCharacterName(characterId) {
+        switch (characterId) {
+          case 'mai':
+            return 'Mai Sakurajima';
+          case 'sakuta':
+            return 'Sakuta Azusagawa';
+          case 'kaede':
+            return 'Kaede Azusagawa';
+          case 'shoko':
+            return 'Shoko Makinohara';
+          case 'noda':
+            return 'Rio Futaba';
+          case 'tomoe':
+            return 'Tomoe Koga';
+          default:
+            return characterId;
+        }
+      }
+
+      // Setup event listeners
+      function setupEventListeners() {
+        // Navigation
+        homeLink.addEventListener('click', function (e) {
+          e.preventDefault();
+          homeSection.classList.remove('hidden');
+          aboutSection.classList.add('hidden');
+        });
+
+        aboutLink.addEventListener('click', function (e) {
+          e.preventDefault();
+          homeSection.classList.add('hidden');
+          aboutSection.classList.remove('hidden');
+        });
+
+        // Mobile menu toggle
+        mobileMenuButton.addEventListener('click', function () {
+          mobileMenu.classList.toggle('hidden');
+        });
+
+        // Form submission
+        postForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+
+          const character = document.getElementById('character').value;
+          const username =
+            document.getElementById('username').value || 'Anonymous';
+          const comment = document.getElementById('comment').value;
+          const imageInput = document.getElementById('image');
+
+          if (!comment) {
+            alert('Please enter a comment');
+            return;
+          }
+
+          // Create new post
+          const newPost = {
+            id: posts.length + 1,
+            character: character,
+            username: username,
+            comment: comment,
+            timestamp: new Date().toISOString(),
+          };
+
+          // Handle image if provided
+          if (imageInput.files && imageInput.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              newPost.image = e.target.result;
+              posts.push(newPost);
+              renderPosts();
+              postForm.reset();
+            };
+            reader.readAsDataURL(imageInput.files[0]);
+          } else {
+            posts.push(newPost);
+            renderPosts();
+            postForm.reset();
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
